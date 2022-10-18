@@ -74,7 +74,7 @@ export default function Home() {
               console.log(res)
               axios({
                 method: "GET",
-                url: "http://localhost:8081/api/documents/"+cookie.load("user").id,
+                url: "http://localhost:8081/api/documents/user/"+cookie.load("user").id,
                 headers: {
                   "Content-Type": "application/json",
                 },
