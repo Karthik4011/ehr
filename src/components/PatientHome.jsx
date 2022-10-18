@@ -15,6 +15,25 @@ import { Cancel } from "@mui/icons-material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 export default function Home() {
   const history = useNavigate();
@@ -33,6 +52,14 @@ export default function Home() {
   const [startDate, setStartDate] = useState(new Date());
   const [appntms, setAppntms] = useState(null);
   const [docdic, setDocdic] = useState(null);
+  const [seldoclist, setSeldoclist] = React.useState([]);
+  const [doclist, setDoclist] = React.useState(null);
+  const [docdictionary, setDocdictionary] = React.useState(null);
+  const [urllist, setUrllist] = React.useState("");
+
+
+
+
 
   const onChange = (dates) => {
     setStartDate(dates);
@@ -58,7 +85,6 @@ export default function Home() {
     setLoader(true);
     var dat = cookie.load("user");
     setLuser(dat);
-    console.log(dat);
     if (!dat) {
       history("/Login");
     }
@@ -76,7 +102,6 @@ export default function Home() {
         temp[res.data[i].id] = res.data[i];
       }
       setDocdic(temp);
-      console.log(temp);
     });
     axios({
       method: "GET",
@@ -87,6 +112,23 @@ export default function Home() {
     }).then((res) => {
       setAppntms(res.data);
     });
+    axios({
+      method: "GET",
+      url: "http://localhost:8081/api/documents/user/"+dat.id,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      var lis = res.data
+      var docnameurllist = []
+      var docdictionary = {}
+      for(var i=0;i<res.data.length;i++){
+        docnameurllist.push(res.data[i].documentname)
+        docdictionary[res.data[i].documentname]= res.data[i].documenturl
+      }
+      setDoclist(docnameurllist)
+      setDocdictionary(docdictionary)
+    });
   }, []);
 
   const bookAppointment = () => {
@@ -94,8 +136,8 @@ export default function Home() {
       doctorid: seldoc.id,
       patientid: luser.id,
       bookingdate: startDate.toLocaleDateString("en-US"),
+      documentslist: urllist.toString()
     };
-    console.log(body);
 
     axios({
       method: "POST",
@@ -120,9 +162,27 @@ export default function Home() {
           },
         }).then((res) => {
           setAppntms(res.data);
+          setDopen(false)
         });
       }
     });
+  };
+
+  const handleDocChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSeldoclist(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    var urllist = []
+    var temp = typeof value === 'string' ? value.split(',') : value
+    for(var i=0;i<temp.length;i++){
+      urllist.push(docdictionary[temp[i]])
+    }
+    setUrllist(urllist)
+    console.log(urllist)
   };
 
   return !loader ? (
@@ -145,59 +205,81 @@ export default function Home() {
               <Paper>
                 <Grid container style={{ padding: 10 }}>
                   <Grid item xs={12}>
-                    <Typography>Appointment History</Typography><br></br>
+                    <Typography>Appointment History</Typography>
+                    <br></br>
                   </Grid>
                   {appntms
-                    ? appntms.map((appointment) => 
-                    appointment.patientid == luser.id ?
-                    (
-                        <Grid item xs={12} style={{marginBottom: 10, border:"1px solid #ccc", borderRadius:5}}>
-                          <Paper style={{padding:5}}>
-                            <Grid container>
-                              <Grid item xs={2} style={{marginTop:6}}>
-                                <img
-                                  style={{ borderRadius: 50, height: 50 }}
-                                  src="https://xsgames.co/randomusers/assets/avatars/male/74.jpg"
-                                ></img>
-                              </Grid>
-                              <Grid item xs={6}>
-                                {docdic ? (
-                                  <span>
-                                    <Typography style={{ fontSize: 14 }}>
-                                      Doctot Name: {docdic[appointment.doctorid].first_name}
-                                    </Typography>
-                                    <Typography style={{ fontSize: 12 }}>
-                                      {docdic[appointment.doctorid].email}
-                                    </Typography>
-                                    <Typography style={{ fontSize: 12 }}>
-                                      Phone:{" "}
-                                      {docdic[appointment.doctorid].phone}
-                                    </Typography>
-                                  </span>
-                                ) : null}
-                              </Grid>
+                    ? appntms.map((appointment) =>
+                        appointment.patientid == luser.id ? (
+                          <Grid
+                            item
+                            xs={12}
+                            style={{
+                              marginBottom: 10,
+                              border: "1px solid #ccc",
+                              borderRadius: 5,
+                            }}
+                          >
+                            <Paper style={{ padding: 5 }}>
+                              <Grid container>
+                                <Grid item xs={2} style={{ marginTop: 6 }}>
+                                  <img
+                                    style={{ borderRadius: 50, height: 50 }}
+                                    src="https://xsgames.co/randomusers/assets/avatars/male/74.jpg"
+                                  ></img>
+                                </Grid>
+                                <Grid item xs={6}>
+                                  {docdic ? (
+                                    <span>
+                                      <Typography style={{ fontSize: 14 }}>
+                                        Doctot Name:{" "}
+                                        {
+                                          docdic[appointment.doctorid]
+                                            .first_name
+                                        }
+                                      </Typography>
+                                      <Typography style={{ fontSize: 12 }}>
+                                        {docdic[appointment.doctorid].email}
+                                      </Typography>
+                                      <Typography style={{ fontSize: 12 }}>
+                                        Phone:{" "}
+                                        {docdic[appointment.doctorid].phone}
+                                      </Typography>
+                                    </span>
+                                  ) : null}
+                                </Grid>
 
-                              <Grid item xs={2} style={{padding: 10}}>
-                                <Typography style={{fontSize: 13}}>Date: {appointment.bookingdate}</Typography>
-                                
+                                <Grid item xs={2} style={{ padding: 10 }}>
+                                  <Typography style={{ fontSize: 13 }}>
+                                    Date: {appointment.bookingdate}
+                                  </Typography>
+                                </Grid>
+                                <Grid item xs={2} style={{ marginTop: 16 }}>
+                                  {new Date(appointment.bookingdate) <=
+                                  new Date() ? (
+                                    <Button
+                                      variant="contained"
+                                      disabled
+                                      size="small"
+                                      style={{ fontSize: 8 }}
+                                    >
+                                      Completed
+                                    </Button>
+                                  ) : (
+                                    <Button
+                                      variant="contained"
+                                      size="small"
+                                      style={{ fontSize: 8 }}
+                                    >
+                                      Cancel
+                                    </Button>
+                                  )}
+                                </Grid>
                               </Grid>
-                              <Grid item xs={2} style={{marginTop: 16}}>
-                              
-                                {new Date(appointment.bookingdate) <=  new Date()?
-                                (<Button variant="contained" disabled size="small" style={{fontSize:8}}>
-                                  Completed
-                                </Button>) : (
-                                    <Button variant="contained" size="small" style={{fontSize:8}}>
-                                    Cancel
-                                  </Button>
-                                ) }
-                              </Grid>
-                            </Grid>
-                          </Paper>
-                        </Grid>
+                            </Paper>
+                          </Grid>
+                        ) : null
                       )
-                      : null
-                    )
                     : null}
                 </Grid>
               </Paper>
@@ -214,7 +296,6 @@ export default function Home() {
                       fullWidth
                       onChange={(event) => {
                         setSearch(event.target.value);
-                        console.log("searching");
                         if (
                           event.target.value == "" ||
                           event.target.value == null
@@ -271,7 +352,6 @@ export default function Home() {
                                     color="primary"
                                     size="small"
                                     onClick={(event) => {
-                                      console.log(doc);
                                       setSeldoc(doc);
                                       setDopen(true);
                                     }}
@@ -307,13 +387,13 @@ export default function Home() {
                 <Typography style={{ fontSize: 14 }}>
                   Doctor: {seldoc.first_name} {seldoc.last_name}
                 </Typography>
-                <Typography style={{ fontSize: 12 }}>{seldoc.email}</Typography>
+                {/* <Typography style={{ fontSize: 12 }}>{seldoc.email}</Typography>
                 <Typography style={{ fontSize: 12 }}>
                   Specialization: {seldoc.specialization}
                 </Typography>
                 <Typography style={{ fontSize: 12 }}>
                   Phone: {seldoc.phone}
-                </Typography>
+                </Typography> */}
               </Grid>
             ) : null}
             <Grid item xs={12} style={{ textAlign: "center", marginTop: 20 }}>
@@ -325,6 +405,27 @@ export default function Home() {
                 selectsDisabledDaysInRange
                 inline
               />
+            </Grid>
+            <Grid item xs={8}>
+              <FormControl sx={{ m: 1, width: 300 }} size="small">
+                <InputLabel id="demo-multiple-checkbox-label">Select Documents</InputLabel>
+                <Select
+                  multiple
+                  value={seldoclist}
+                  onChange={handleDocChange}
+                  input={<OutlinedInput label="Tag" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                  size="small"
+                >
+                  {doclist ? doclist.map((name) => (
+                    <MenuItem key={name} value={name}>
+                      <Checkbox checked={seldoclist.indexOf(name) > -1} />
+                      <ListItemText primary={name} />
+                    </MenuItem>
+                  )) : null}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid xs={5} style={{ marginTop: 10 }} onClick={bookAppointment}>
               <Button fullWidth size="small" variant="contained">

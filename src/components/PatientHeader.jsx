@@ -74,6 +74,17 @@ export default function Home() {
           >
             Home
           </Typography>
+
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Documents"?"white":"", color:location.pathname=="/Documents"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Documents"?5:5}}
+            onClick={()=>{ history("/Documents");}}
+          >
+            Documents
+          </Typography>
           {/* <Typography
             variant="h6"
             noWrap

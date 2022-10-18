@@ -8,6 +8,8 @@ import PatientHome from "./components/PatientHome";
 import DoctorHome from "./components/DoctorHome";
 import SignUp from "./components/SignUp";
 import ForgotPassword from "./components/ForgotPassword";
+import Documents from "./components/Documents";
+
 import About from "./components/About";
 
 
@@ -26,6 +28,7 @@ function App() {
             <Route exact path="/Signup" element={<SignUp />}></Route>
             <Route exact path="/Forgot" element={<ForgotPassword />}></Route>
             <Route exact path="/About" element={<About />}></Route>
+            <Route exact path="/Documents" element={<Documents />}></Route>
 
           </Routes>
       </Router>
