@@ -80,6 +80,7 @@ export default function Home() {
                 },
               }).then((res) => {
                 console.log(res)
+                setDoclis(res.data)
                 setImageurl(url);
                 setProgres(null);
               });
