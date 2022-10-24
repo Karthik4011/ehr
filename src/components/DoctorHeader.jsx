@@ -69,22 +69,22 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Home"?"white":"", color:location.pathname=="/Home"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Home"?5:5}}
-            onClick={()=>{ history("/Home");}}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorHome"?"white":"", color:location.pathname=="/DoctorHome"?"black":"", textAlign:"center", borderRadius: location.pathname=="/DoctorHome"?5:5}}
+            onClick={()=>{ history("/DoctorHome");}}
           >
             Home
           </Typography>
-          {/* <Typography
+           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Add"?"white":"", color:location.pathname=="/Add"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Add"?5:5}}
-            onClick={()=>{ history("/Add");}}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorProfile"?"white":"", color:location.pathname=="/DoctorProfile"?"black":"", textAlign:"center", borderRadius: location.pathname=="/DoctorProfile"?5:5}}
+            onClick={()=>{ history("/DoctorProfile");}}
           >
-            Add Item
+            Account
           </Typography>
-          <Typography
+          {/*<Typography
             variant="h6"
             noWrap
             component="div"

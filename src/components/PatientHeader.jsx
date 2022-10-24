@@ -12,6 +12,7 @@ import Drawer from "@mui/material/Drawer";
 import LogoutIcon from '@mui/icons-material/Logout';
 import cookie from "react-cookies";
 import { ToastContainer, toast } from "react-toastify";
+import logo from "../assets/logo.png"
 
 
 
@@ -64,6 +65,9 @@ export default function Home() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{boxShadow:"none", backgroundColor:"black"}}>
         <Toolbar>
+          <Typography>
+            <img src={logo} style={{height: 50,marginRight: 30}}></img>
+          </Typography>
           <Typography
             variant="h6"
             noWrap
@@ -128,6 +132,17 @@ export default function Home() {
           >
             Notifications
           </Typography>*/}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Notifications"?"white":"", color:location.pathname=="/Notifications"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Notifications"?5:5}}
+            onClick={()=>{ history("/PatientProfile");}}
+
+          >
+            Account
+          </Typography>
           <Typography
             variant="h6"
             noWrap

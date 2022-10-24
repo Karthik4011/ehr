@@ -18,9 +18,13 @@ import { ToastContainer, toast } from "react-toastify";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import { useDropzone } from "react-dropzone";
 import filupload from "../images/fileupload.jpeg";
+import DeleteIcon from '@mui/icons-material/Delete';
 import emptydoc from "../images/nodocuments.png";
 import firebase from "../Firebase/Firebase";
 import CircularProgress from '@mui/material/CircularProgress';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
 
 
 export default function Home() {
@@ -64,6 +68,7 @@ export default function Home() {
               url: "http://localhost:8081/api/documents",
               headers: {
                 "Content-Type": "application/json",
+                "Accept": "*/*"
               },
               data: {
                 "userid": cookie.load("user").id,
@@ -139,14 +144,43 @@ export default function Home() {
                   </Typography>
                 </Grid>
               </Grid>
-                <Grid container>
+                <Grid container style={{maxHeight: 700, overflow: "scroll"}}>
                   <Grid item xs={12}>
                     {doclis && doclis.length > 0 ? doclis.map((doc)=>(
                       <Paper style={{ padding: 20,marginBottom:10 }}>
                       <Grid container>
+                        <Grid item xs={1}>
+                          <Button
+                          style={{color:"black"}}
+                          value={doc.id} onClick={(event)=>{
+                            console.log(event)
+                              axios({
+                                method: "DELETE",
+                                url: "http://localhost:8081/api/documents/"+doc.id,
+                                headers: {
+                                  "Content-Type": "application/json",
+                                },
+                              }).then((res) => {
+                                axios({
+                                  method: "GET",
+                                  url: "http://localhost:8081/api/documents/user/"+luser.id,
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                }).then((res) => {
+                                  console.log(res.data)
+                                  setDoclis(res.data)
+                                });
+                              });
+                            }}>
+                          <DeleteIcon
+                            style={{cursor:"pointer"}}
+                            
+                          ></DeleteIcon></Button>
+                        </Grid>
                         <Grid
                           item
-                          xs={10}
+                          xs={9}
                           style={{ textAlign: "center", paddingLeft: 20 }}
                         >
                           <Typography>{doc.documentname}</Typography>
@@ -166,6 +200,7 @@ export default function Home() {
                       </Typography>
                       </div>
                     )}
+                    
                     
                   </Grid>
                 </Grid>
@@ -195,7 +230,7 @@ export default function Home() {
         </Grid>
       </Grid>
 
-      {/* <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto"}}>
+      <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
@@ -206,7 +241,19 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Add");
+                history("/PatientHome");
+              }}
+            >
+              Previous
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/PatientProfile");
               }}
             >
               Next
@@ -218,7 +265,7 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Home");
+                history("/PatientHome");
               }}
             >
               Home
@@ -244,7 +291,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar> */}
+      </AppBar> 
     </Box>
   );
 }

@@ -94,7 +94,7 @@ export default function Home() {
            <img src={gif} style={{width:1000, borderRadius:50}}></img>
         </Grid>
       </Grid>
-      {/* <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto"}}>
+      <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
@@ -125,7 +125,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar> */}
+      </AppBar>
     </Box>
   );
 }

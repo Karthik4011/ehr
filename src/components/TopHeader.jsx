@@ -82,7 +82,7 @@ export default function Home() {
   ) : (
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static" style={{boxShadow:"none",backgroundColor:"black"}}>
-        <Toolbar style={{textAlign:"left"}}>
+        <Toolbar>
         <Typography
             variant="h6"
             noWrap
@@ -142,16 +142,6 @@ export default function Home() {
             onClick={()=>{ history("/Help");}}
           >
            
-          </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Contact"?"white":"", color:location.pathname=="/Contact"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Contact"?5:5}}
-            onClick={()=>{ history("/Contact");}}
-          >
-          
           </Typography>
         </Toolbar>
     </AppBar>

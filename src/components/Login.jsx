@@ -183,19 +183,21 @@ export default function Home() {
           </Paper>
         </Grid>
       </Grid>
-      {/* <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto"}}>
+       <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
+        <IconButton edge="end" color="inherit">
           <Button
             variant="contained"
             color="primary"
             onClick={() => {
-              history("/intor");
+              history("/");
             }}
             style={{backgroundColor:"white", color:"black"}}
             >
             Previous
           </Button>
+          </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
@@ -222,7 +224,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar> */}
+      </AppBar>
     </Box>
   );
 }

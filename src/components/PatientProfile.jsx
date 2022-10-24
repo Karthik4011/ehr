@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import cookie from "react-cookies";
 import IconButton from "@mui/material/IconButton";
 import logo from "../assets/logo.png";
-import THeader from "./TopHeader";
+import THeader from "./PatientHeader";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -44,6 +44,7 @@ export default function Home() {
   const [err, setErr] = React.useState(false);
   const [password, setPassword] = React.useState(null);
   const [cpassword, setCpassword] = React.useState(null);
+  const [luser, setLuser] = React.useState(null);
   const [type, setType] = React.useState("patient");
   const handleLogin = () => {
     var errr = false;
@@ -77,6 +78,7 @@ export default function Home() {
           : "http://localhost:8081/api/doctor/signup";
 
       var datap = {
+        id: luser.id,
         first_name: firstname,
         last_name: lastname,
         email: email,
@@ -103,6 +105,8 @@ export default function Home() {
         password: password,
         specialization: specialization,
       };
+      console.log(datad);
+      console.log(datap);
       axios({
         method: "POST",
         url: aurl,
@@ -113,13 +117,15 @@ export default function Home() {
       }).then((res) => {
         console.log(res);
         if (res.status == 200) {
-          toast.info("Account created successfully", {
+          toast.info("Profile updated successfully", {
             position: "bottom-center",
             pauseOnHover: true,
             draggable: true,
             autoClose: true,
           });
-          history("/Login");
+          console.log(res.data);
+          cookie.save("user", res.data);
+          history("/PatientHome");
         }
       });
     } else {
@@ -134,6 +140,28 @@ export default function Home() {
 
   useEffect(() => {
     setLoader(true);
+    var dat = cookie.load("user");
+    setLuser(dat);
+    if (!dat) {
+      history("/Login");
+    }
+
+    setFirstname(dat.first_name);
+    setLastname(dat.last_name);
+    setEmail(dat.email);
+    setPhone(dat.phone);
+    setAddress(dat.address.split(",")[0]);
+    setCity(dat.address.split(",")[1])
+    setPincode(dat.address.split(",")[2])
+    setDob(dat.date_of_birth);
+    setGender(dat.sex);
+    setFathername(dat.father_name);
+    setMothername(dat.mother_name);
+    setSpousename(dat.spouse_name);
+    setCountry(dat.nationality);
+    setOccupation(dat.occupation);
+    setPassword(dat.password);
+    setCpassword(dat.password);
   }, []);
 
   return !loader ? (
@@ -147,32 +175,7 @@ export default function Home() {
         <Grid item xs={7}>
           <Paper elevation={3} style={{ padding: "30px 30px 60px 30px" }}>
             <Grid container justifyContent={"center"}>
-              <Grid item xs={10} style={{ marginBottom: 15 }}>
-                <FormControl
-                  onChange={(event) => {
-                    setType(event.target.value);
-                  }}
-                >
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      checked={type === "patient"}
-                      value="patient"
-                      control={<Radio />}
-                      label="Patient"
-                    />
-                    <FormControlLabel
-                      checked={type === "doctor"}
-                      value="doctor"
-                      control={<Radio />}
-                      label="Doctor"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
+              <Grid item xs={10} style={{ marginBottom: 15 }}></Grid>
 
               <Grid item xs={10}>
                 <Grid container spacing={1}>
@@ -345,6 +348,7 @@ export default function Home() {
                   </Grid>
                 </Grid>
               ) : null}
+
               <Grid item xs={10}>
                 <Grid container spacing={1}>
                   <Grid item xs={6} style={{ marginTop: 10 }}>
@@ -430,22 +434,6 @@ export default function Home() {
                   Submit
                 </Button>
               </Grid>
-              <Grid item xs={12} style={{ marginTop: 15 }}></Grid>
-              <Grid item xs={7}>
-                <Typography
-                  style={{
-                    fontSize: 12,
-                    color: "CaptionText",
-                    fontStyle: "italic",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    history("/Login");
-                  }}
-                >
-                  Existing User? Login Here
-                </Typography>
-              </Grid>
             </Grid>
           </Paper>
         </Grid>
@@ -466,7 +454,7 @@ export default function Home() {
               variant="contained"
               color="primary"
               onClick={() => {
-                history("/Login");
+                history("/Documents");
               }}
               style={{ backgroundColor: "white", color: "black" }}
             >
@@ -476,11 +464,9 @@ export default function Home() {
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
-              style={{ backgroundColor: "white", color: "black" }}
+              style={{ backgroundColor: "grey", color: "black" }}
               color="primary"
-              onClick={() => {
-                history("/About");
-              }}
+              disabled
             >
               Next
             </Button>

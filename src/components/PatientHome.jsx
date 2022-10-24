@@ -15,13 +15,18 @@ import { Cancel } from "@mui/icons-material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import profimage from "../images/profile.png";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+
 
 
 const ITEM_HEIGHT = 48;
@@ -56,10 +61,7 @@ export default function Home() {
   const [doclist, setDoclist] = React.useState(null);
   const [docdictionary, setDocdictionary] = React.useState(null);
   const [urllist, setUrllist] = React.useState("");
-
-
-
-
+  const [odates, setOdates] = useState([]);
 
   const onChange = (dates) => {
     setStartDate(dates);
@@ -114,20 +116,41 @@ export default function Home() {
     });
     axios({
       method: "GET",
-      url: "http://localhost:8081/api/documents/user/"+dat.id,
+      url: "http://localhost:8081/api/documents/user/" + dat.id,
       headers: {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      var lis = res.data
-      var docnameurllist = []
-      var docdictionary = {}
-      for(var i=0;i<res.data.length;i++){
-        docnameurllist.push(res.data[i].documentname)
-        docdictionary[res.data[i].documentname]= res.data[i].documenturl
+      var lis = res.data;
+      var docnameurllist = [];
+      var docdictionary = {};
+      for (var i = 0; i < res.data.length; i++) {
+        docnameurllist.push(res.data[i].documentname);
+        docdictionary[res.data[i].documentname] = res.data[i].documenturl;
       }
-      setDoclist(docnameurllist)
-      setDocdictionary(docdictionary)
+      setDoclist(docnameurllist);
+      setDocdictionary(docdictionary);
+    });
+    axios({
+      method: "GET",
+      url: "http://localhost:8081/api/availability",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      var temp = {};
+      for (var i = 0; i < res.data.length; i++) {
+        temp[res.data[i].doctorid] = [];
+      }
+      for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].doctorid) {
+            temp[res.data[i].doctorid].push(new Date(res.data[i].adate));
+          } else {
+            temp[res.data[i].doctorid] = [];
+          }
+      }
+      setOdates(temp);
+      console.log(temp);
     });
   }, []);
 
@@ -136,7 +159,7 @@ export default function Home() {
       doctorid: seldoc.id,
       patientid: luser.id,
       bookingdate: startDate.toLocaleDateString("en-US"),
-      documentslist: urllist.toString()
+      documentslist: urllist.toString(),
     };
 
     axios({
@@ -162,7 +185,7 @@ export default function Home() {
           },
         }).then((res) => {
           setAppntms(res.data);
-          setDopen(false)
+          setDopen(false);
         });
       }
     });
@@ -174,15 +197,15 @@ export default function Home() {
     } = event;
     setSeldoclist(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
-    var urllist = []
-    var temp = typeof value === 'string' ? value.split(',') : value
-    for(var i=0;i<temp.length;i++){
-      urllist.push(docdictionary[temp[i]])
+    var urllist = [];
+    var temp = typeof value === "string" ? value.split(",") : value;
+    for (var i = 0; i < temp.length; i++) {
+      urllist.push(docdictionary[temp[i]]);
     }
-    setUrllist(urllist)
-    console.log(urllist)
+    setUrllist(urllist);
+    console.log(urllist);
   };
 
   return !loader ? (
@@ -203,7 +226,7 @@ export default function Home() {
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <Paper>
-                <Grid container style={{ padding: 10 }}>
+                <Grid container style={{ padding: 10,  maxHeight: 700, overflow: "scroll"  }}>
                   <Grid item xs={12}>
                     <Typography>Appointment History</Typography>
                     <br></br>
@@ -225,7 +248,7 @@ export default function Home() {
                                 <Grid item xs={2} style={{ marginTop: 6 }}>
                                   <img
                                     style={{ borderRadius: 50, height: 50 }}
-                                    src="https://xsgames.co/randomusers/assets/avatars/male/74.jpg"
+                                    src={profimage}
                                   ></img>
                                 </Grid>
                                 <Grid item xs={6}>
@@ -255,8 +278,17 @@ export default function Home() {
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={2} style={{ marginTop: 16 }}>
-                                  {new Date(appointment.bookingdate) <=
-                                  new Date() ? (
+                                  {appointment.status == "Cancelled" ? (
+                                    <Button
+                                      variant="contained"
+                                      disabled
+                                      size="small"
+                                      style={{ fontSize: 8 }}
+                                    >
+                                      Cancelled
+                                    </Button>
+                                  ) : new Date(appointment.bookingdate) <=
+                                    new Date() ? (
                                     <Button
                                       variant="contained"
                                       disabled
@@ -270,10 +302,52 @@ export default function Home() {
                                       variant="contained"
                                       size="small"
                                       style={{ fontSize: 8 }}
+                                      onClick={() => {
+                                        var body = appointment;
+                                        body.status = "Cancelled";
+
+                                        axios({
+                                          method: "POST",
+                                          url: "http://localhost:8081/api/booking",
+                                          headers: {
+                                            "Content-Type": "application/json",
+                                          },
+                                          data: body,
+                                        }).then((res) => {
+                                          console.log(res.data);
+                                          axios({
+                                            method: "GET",
+                                            url: "http://localhost:8081/api/bookings",
+                                            headers: {
+                                              "Content-Type":
+                                                "application/json",
+                                            },
+                                          }).then((res) => {
+                                            setAppntms(res.data);
+                                            setDopen(false);
+                                          });
+                                        });
+                                      }}
                                     >
                                       Cancel
                                     </Button>
                                   )}
+                                </Grid>
+                                <Grid item xs={12} style={{ marginTop: 10 }}>
+                                  {appointment.documentslist
+                                    .split(",")
+                                    .map((doc, key) => (
+                                      <a
+                                        style={{
+                                          fontSize: 11,
+                                          textDecoration: "none",
+                                          color: "blue",
+                                        }}
+                                        href={doc}
+                                      >
+                                        Document{key + 1} &nbsp;
+                                      </a>
+                                    ))}
                                 </Grid>
                               </Grid>
                             </Paper>
@@ -281,12 +355,13 @@ export default function Home() {
                         ) : null
                       )
                     : null}
+
                 </Grid>
               </Paper>
             </Grid>
             <Grid item xs={6}>
-              <Paper style={{ padding: 10 }} elevation={3}>
-                <Grid container justifyContent="center">
+              <Paper elevation={3}>
+                <Grid container justifyContent="center" style={{padding: 10,maxHeight: 700, overflow: "scroll"}}>
                   <Grid item xs={6}>
                     <TextField
                       variant="outlined"
@@ -308,6 +383,12 @@ export default function Home() {
                             if (
                               li[i].first_name
                                 .toLowerCase()
+                                .includes(event.target.value.toLowerCase()
+                                
+                                )
+                                || 
+                                li[i].specialization
+                                .toLowerCase()
                                 .includes(event.target.value.toLowerCase())
                             ) {
                               temp.push(li[i]);
@@ -328,7 +409,7 @@ export default function Home() {
                                 <Grid item xs={12}>
                                   <img
                                     style={{ borderRadius: 50, height: 100 }}
-                                    src="https://xsgames.co/randomusers/assets/avatars/male/74.jpg"
+                                    src={profimage}
                                   ></img>
                                 </Grid>
                                 <Grid item xs={12} style={{ marginTop: 10 }}>
@@ -397,18 +478,20 @@ export default function Home() {
               </Grid>
             ) : null}
             <Grid item xs={12} style={{ textAlign: "center", marginTop: 20 }}>
-              <DatePicker
+             {odates && seldoc? <DatePicker
                 selected={startDate}
                 onChange={onChange}
-                excludeDates={[new Date(), new Date("10/13/2022")]}
+                excludeDates={odates[seldoc.id]}
                 minDate={new Date()}
                 selectsDisabledDaysInRange
                 inline
-              />
+              /> : null}
             </Grid>
             <Grid item xs={8}>
               <FormControl sx={{ m: 1, width: 300 }} size="small">
-                <InputLabel id="demo-multiple-checkbox-label">Select Documents</InputLabel>
+                <InputLabel id="demo-multiple-checkbox-label">
+                  Select Documents
+                </InputLabel>
                 <Select
                   multiple
                   value={seldoclist}
@@ -418,12 +501,14 @@ export default function Home() {
                   MenuProps={MenuProps}
                   size="small"
                 >
-                  {doclist ? doclist.map((name) => (
-                    <MenuItem key={name} value={name}>
-                      <Checkbox checked={seldoclist.indexOf(name) > -1} />
-                      <ListItemText primary={name} />
-                    </MenuItem>
-                  )) : null}
+                  {doclist
+                    ? doclist.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={seldoclist.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
+                        </MenuItem>
+                      ))
+                    : null}
                 </Select>
               </FormControl>
             </Grid>
@@ -436,7 +521,7 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto"}}>
+       <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
@@ -447,7 +532,7 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Add");
+                history("/Documents");
               }}
             >
               Next
@@ -459,7 +544,7 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Home");
+                history("/PatientHome");
               }}
             >
               Home
@@ -485,7 +570,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar> */}
+      </AppBar> 
     </Box>
   );
 }

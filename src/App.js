@@ -9,7 +9,8 @@ import DoctorHome from "./components/DoctorHome";
 import SignUp from "./components/SignUp";
 import ForgotPassword from "./components/ForgotPassword";
 import Documents from "./components/Documents";
-
+import PatientProfile from "./components/PatientProfile";
+import DoctorProfile from "./components/DoctorProfile";
 import About from "./components/About";
 
 
@@ -29,6 +30,8 @@ function App() {
             <Route exact path="/Forgot" element={<ForgotPassword />}></Route>
             <Route exact path="/About" element={<About />}></Route>
             <Route exact path="/Documents" element={<Documents />}></Route>
+            <Route exact path="/PatientProfile" element={<PatientProfile />}></Route>
+            <Route exact path="/DoctorProfile" element={<DoctorProfile />}></Route>
 
           </Routes>
       </Router>

@@ -84,17 +84,20 @@ export default function Home() {
     <THeader></THeader>
       <Grid container justifyContent="center" style={{ marginTop: 30 }}>
         <Grid item xs={7} style={{marginTop:30}}>
-           <Typography style={{fontSize:28,fontStyle:"italic"}}></Typography>
-           <Typography style={{fontSize:18}}>
-                About
-           </Typography>
+           <Paper style={{padding:15}} elevation={3}>
+            <Typography style={{fontSize: 25, marginBottom: 10}}>Team</Typography>
+            <Typography style={{fontSize: 20}}>Kamagari Mallikarjuna</Typography>
+            <Typography style={{fontSize: 20}}>Sirigey Kirtana</Typography>
+            <Typography style={{fontSize: 20}}>Pothireddy Jithin Sai Reddy</Typography>
+            <Typography style={{fontSize: 20}}>Addepalli Sourya Varma</Typography>
+           </Paper>
         </Grid>
         <Grid xs={12}></Grid>
         <Grid item xs={12} style={{marginTop:100}}>
           
         </Grid>
       </Grid>
-      {/* <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto"}}>
+      <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto",backgroundColor:"black"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
@@ -105,10 +108,10 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Login");
+                history("/Signup");
               }}
             >
-              Next
+              Previous
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
@@ -125,7 +128,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar> */}
+      </AppBar> 
     </Box>
   );
 }
