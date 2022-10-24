@@ -138,10 +138,10 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Help"?"white":"", color:location.pathname=="/Help"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Help"?5:5}}
-            onClick={()=>{ history("/Help");}}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Contact"?"white":"", color:location.pathname=="/Contact"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Contact"?5:5}}
+            onClick={()=>{ history("/Contact");}}
           >
-           
+           Contact
           </Typography>
         </Toolbar>
     </AppBar>

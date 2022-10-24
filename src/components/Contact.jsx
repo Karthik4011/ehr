@@ -84,8 +84,12 @@ export default function Home() {
     <THeader></THeader>
       <Grid container justifyContent="center" style={{ marginTop: 30 }}>
         <Grid item xs={7} style={{marginTop:30}}>
-           <Paper style={{padding:25}} elevation={3}>
-           <Typography>Medical information is one of the sorts of data that is distinguished by the variety and quantity of its sources. This diversity contributes to the emergence of a slew of issues, the most serious of which is the difficulty of communicating and interacting with systems. This is referred to as the interoperability problem. In this regard, we suggest the Electronic Medical Health Record System as a novel mediator semantic in this work provides the user with a unified representation of information that was previously dispersed across numerous separate and heterogeneous sites and is tied to a given project. This application will help the user by identifying the specific doctor as per their health condition. It also allows the user to interact with a big number of people</Typography>
+           <Paper style={{padding:15}} elevation={3}>
+            <Typography style={{fontSize: 25, marginBottom: 10}}>Team</Typography>
+            <Typography style={{fontSize: 20}}>Kamagari Mallikarjuna</Typography>
+            <Typography style={{fontSize: 20}}>Sirigey Kirtana</Typography>
+            <Typography style={{fontSize: 20}}>Pothireddy Jithin Sai Reddy</Typography>
+            <Typography style={{fontSize: 20}}>Addepalli Sourya Varma</Typography>
            </Paper>
         </Grid>
         <Grid xs={12}></Grid>
@@ -104,22 +108,10 @@ export default function Home() {
               style={{backgroundColor:"white", color:"black"}}
               color="primary"
               onClick={() => {
-                history("/Signup");
+                history("/About");
               }}
             >
               Previous
-            </Button>
-          </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Button
-              variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
-              color="primary"
-              onClick={() => {
-                history("/Contact");
-              }}
-            >
-              Next
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">

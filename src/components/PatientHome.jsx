@@ -160,6 +160,7 @@ export default function Home() {
       patientid: luser.id,
       bookingdate: startDate.toLocaleDateString("en-US"),
       documentslist: urllist.toString(),
+      status: "Booked"
     };
 
     axios({
