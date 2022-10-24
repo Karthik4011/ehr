@@ -210,11 +210,11 @@ export default function Home() {
                                         }
                                       </Typography>
                                       <Typography style={{ fontSize: 12 }}>
-                                        {patdictionary[appointment.doctorid].email}
+                                        {patdictionary[appointment.patientid].email}
                                       </Typography>
                                       <Typography style={{ fontSize: 12 }}>
                                         Phone:{" "}
-                                        {patdictionary[appointment.doctorid].phone}
+                                        {patdictionary[appointment.patientid].phone}
                                       </Typography>
                                     </span>
                                   ) : null}
