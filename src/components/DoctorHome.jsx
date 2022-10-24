@@ -37,7 +37,7 @@ export default function Home() {
   const [docdic, setDocdic] = useState(null);
   const [adates, setAdates] = useState([]);
   const [odates, setOdates] = useState([]);
-  const [patdictionary, setPatdictionary] = React.useState([]);
+  const [patdictionary, setPatdictionary] = React.useState(null);
 
 
 
