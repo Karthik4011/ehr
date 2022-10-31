@@ -28,12 +28,14 @@ export default function Home() {
   const [loader, setLoader] = React.useState(true);
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
-  const [type, setType] = React.useState("patient")
+  const [type, setType] = React.useState("patient");
 
   const handleLogin = () => {
     if ((email != "") & (email != null)) {
-      var aurl = type == "patient" ? "http://localhost:8081/api/patient/login" : "http://localhost:8081/api/doctor/login"
-      var hurl = type == "patient" ? "/PatientHome" : "/DoctorHome" 
+      var aurl =
+        type == "patient"
+          ? "http://localhost:8081/api/patient/login"
+          : "http://localhost:8081/api/doctor/login";
       axios({
         method: "POST",
         url: aurl,
@@ -44,8 +46,27 @@ export default function Home() {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        console.log(res)
-        if (res.data.password == password) {
+        console.log(res);
+        toast.info("Login successfull", {
+          position: "bottom-center",
+          pauseOnHover: true,
+          draggable: true,
+          autoClose: true,
+        });
+      });
+      var hurl = type == "patient" ? "/PatientHome" : "/DoctorHome";
+      axios({
+        method: "POST",
+        url: aurl,
+        data: {
+          email: email,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res.data.password == password && res.data.action != "delete") {
           toast.info("Login successfull", {
             position: "bottom-center",
             pauseOnHover: true,
@@ -55,12 +76,21 @@ export default function Home() {
           history(hurl);
           cookie.save("user", res.data);
         } else {
-          toast.info("Incorrect email or password", {
-            position: "bottom-center",
-            pauseOnHover: true,
-            draggable: true,
-            autoClose: true,
-          });
+          if (res.data.action == "delete") {
+            toast.info("User Account is deleted.", {
+              position: "bottom-center",
+              pauseOnHover: true,
+              draggable: true,
+              autoClose: true,
+            });
+          } else {
+            toast.info("Incorrect email or password", {
+              position: "bottom-center",
+              pauseOnHover: true,
+              draggable: true,
+              autoClose: true,
+            });
+          }
         }
       });
     } else {
@@ -114,31 +144,33 @@ export default function Home() {
                 ></TextField>
               </Grid>
               <Grid item xs={10} style={{ marginTop: 15 }}>
-              <FormControl onChange={(event)=>{
-                setType(event.target.value)
-              }}>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
+                <FormControl
+                  onChange={(event) => {
+                    setType(event.target.value);
+                  }}
                 >
-                  <FormControlLabel
-                    checked = {type === "patient"}
-                    value="patient"
-                    control={<Radio />}
-                    label="Patient"
-                  />
-                  <FormControlLabel
-                    checked = {type === "doctor"}
-                    value="doctor"
-                    control={<Radio />}
-                    label="Doctor"
-                  />
-                </RadioGroup>
-              </FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      checked={type === "patient"}
+                      value="patient"
+                      control={<Radio />}
+                      label="Patient"
+                    />
+                    <FormControlLabel
+                      checked={type === "doctor"}
+                      value="doctor"
+                      control={<Radio />}
+                      label="Doctor"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
-              <Grid item xs={6} style={{ marginTop: 20 }}>
-                <Button
+              {/* <Grid item xs={6} style={{ marginTop: 20 }}>
+                <Button 
                   fullWidth
                   color="primary"
                   variant="contained"
@@ -147,7 +179,7 @@ export default function Home() {
                 >
                   Submit
                 </Button>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} style={{ marginTop: 15 }}></Grid>
               <Grid item xs={7} style={{ marginTop: 15 }}>
                 <Typography
@@ -183,25 +215,33 @@ export default function Home() {
           </Paper>
         </Grid>
       </Grid>
-       <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
+      <AppBar
+        position="fixed"
+        style={{
+          boxShadow: "none",
+          bottom: 0,
+          top: "auto",
+          backgroundColor: "black",
+        }}
+      >
         <Toolbar>
-        <div style={{flexGrow:0.5}} />
-        <IconButton edge="end" color="inherit">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              history("/");
-            }}
-            style={{backgroundColor:"white", color:"black"}}
+          <div style={{ flexGrow: 0.5 }} />
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                history("/");
+              }}
+              style={{ backgroundColor: "white", color: "black" }}
             >
-            Previous
-          </Button>
+              Previous
+            </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
+              style={{ backgroundColor: "white", color: "black" }}
               color="primary"
               onClick={() => {
                 history("/Signup");
@@ -212,8 +252,19 @@ export default function Home() {
           </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
+              fullWidth
+              color="primary"
               variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={handleLogin}
+            >
+              Submit
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
               color="primary"
               onClick={() => {
                 window.open("about:blank", "_self");

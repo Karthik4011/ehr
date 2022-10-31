@@ -92,6 +92,8 @@ export default function Home() {
         nationality: country,
         occupation: occupation,
         password: password,
+        action: "update",
+        pdate: new Date(),
       };
       var datad = {
         first_name: firstname,
@@ -104,6 +106,8 @@ export default function Home() {
         nationality: country,
         password: password,
         specialization: specialization,
+        action: "update",
+        ddate: new Date(),
       };
       console.log(datad);
       console.log(datap);
@@ -151,8 +155,8 @@ export default function Home() {
     setEmail(dat.email);
     setPhone(dat.phone);
     setAddress(dat.address.split(",")[0]);
-    setCity(dat.address.split(",")[1])
-    setPincode(dat.address.split(",")[2])
+    setCity(dat.address.split(",")[1]);
+    setPincode(dat.address.split(",")[2]);
     setDob(dat.date_of_birth);
     setGender(dat.sex);
     setFathername(dat.father_name);
@@ -423,7 +427,7 @@ export default function Home() {
                 </Grid>
               </Grid>
 
-              <Grid item xs={6} style={{ marginTop: 20 }}>
+              {/* <Grid item xs={6} style={{ marginTop: 20 }}>
                 <Button
                   fullWidth
                   color="primary"
@@ -433,7 +437,7 @@ export default function Home() {
                 >
                   Submit
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Paper>
         </Grid>
@@ -464,6 +468,66 @@ export default function Home() {
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
+              color="primary"
+              onClick={handleLogin}
+              style={{ backgroundColor: "white", color: "black" }}
+            >
+              Submit
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                var datap = {
+                  id: luser.id,
+                  first_name: firstname,
+                  last_name: lastname,
+                  email: email,
+                  phone: phone,
+                  address: address + "," + city + "," + pincode,
+                  date_of_birth: dateofbirth,
+                  sex: gender,
+                  father_name: fathername,
+                  mother_name: mothername,
+                  spouse_name: spousename,
+                  nationality: country,
+                  occupation: occupation,
+                  password: password,
+                  action: "delete",
+                  ddate: new Date(),
+                };
+                axios({
+                  method: "POST",
+                  url: "http://localhost:8081/api/patient/signup",
+                  data: datap,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }).then((res) => {
+                  console.log(res);
+                  if (res.status == 200) {
+                    toast.info("Account deleted successfully", {
+                      position: "bottom-center",
+                      pauseOnHover: true,
+                      draggable: true,
+                      autoClose: true,
+                    });
+
+                    cookie.remove("user");
+                    history("/Login");
+                  }
+                });
+              }}
+              style={{ backgroundColor: "red", color: "white" }}
+            >
+              Delete My Account
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
               style={{ backgroundColor: "grey", color: "black" }}
               color="primary"
               disabled
@@ -477,8 +541,14 @@ export default function Home() {
               style={{ backgroundColor: "white", color: "black" }}
               color="primary"
               onClick={() => {
-                window.open("about:blank", "_self");
-                window.close();
+                cookie.remove("user");
+                toast.info("Application exited successfully", {
+                  position: "bottom-center",
+                  pauseOnHover: true,
+                  draggable: true,
+                  autoClose: true,
+                });
+                history("/Login");
               }}
             >
               Exit

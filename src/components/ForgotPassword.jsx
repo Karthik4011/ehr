@@ -65,7 +65,7 @@ export default function Home() {
               };
               emailjs
                 .send(
-                  "service_2pioyjp",
+                  "service_hnd1y1s",
                   "template_7euffcm",
                   templateParams,
                   "user_UrSzNfk0Txv33rqJCC7uC"

@@ -46,6 +46,41 @@ export default function Home() {
   const [cpassword, setCpassword] = React.useState(null);
   const [type, setType] = React.useState("patient");
   const handleLogin = () => {
+    var alrdy = false;
+    var geturl =
+        type == "patient"
+          ? "http://localhost:8081/api/patients"
+          : "http://localhost:8081/api/doctors";
+    axios({
+        method: "GET",
+        url: geturl,
+        headers: {
+          "Content-Type": "application/json",
+        },
+    }).then((res) => {
+        console.log(res);
+        var data = res.data;
+        for(var i=0;i<data.length;i++){
+          if(email == data[i].email){
+            alrdy = true 
+          }
+        }
+        if(alrdy){
+          toast.info("User already exists!!!", {
+            position: "bottom-center",
+            pauseOnHover: true,
+            draggable: true,
+            autoClose: true,
+          });
+          setEmail("")
+        }else{
+          proceedSign()
+        }
+    });
+
+  }
+  const proceedSign = () => {
+    alert("proceed")
     var errr = false;
     if (
       email == "" ||
@@ -90,6 +125,8 @@ export default function Home() {
         nationality: country,
         occupation: occupation,
         password: password,
+        action: "insert",
+        pdate: new Date()
       };
       var datad = {
         first_name: firstname,
@@ -102,6 +139,8 @@ export default function Home() {
         nationality: country,
         password: password,
         specialization: specialization,
+        action: "insert",
+        ddate: new Date()
       };
       axios({
         method: "POST",
@@ -180,7 +219,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Firstname"
+                      label="Firstname*"
                       value={firstname}
                       fullWidth
                       onChange={(event) => {
@@ -192,7 +231,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Lastname"
+                      label="Lastname*"
                       value={lastname}
                       fullWidth
                       onChange={(event) => {
@@ -206,7 +245,7 @@ export default function Home() {
                 <TextField
                   variant="outlined"
                   size="small"
-                  label="Email"
+                  label="Email*"
                   value={email}
                   fullWidth
                   onChange={(event) => {
@@ -221,7 +260,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Phone"
+                      label="Phone*"
                       value={phone}
                       fullWidth
                       onChange={(event) => {
@@ -233,7 +272,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Date of Birth"
+                      label="Date of Birth*"
                       value={dateofbirth}
                       fullWidth
                       onChange={(event) => {
@@ -249,7 +288,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Gender"
+                      label="Gender*"
                       value={gender}
                       fullWidth
                       onChange={(event) => {
@@ -261,7 +300,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="country"
+                      label="country*"
                       value={country}
                       fullWidth
                       onChange={(event) => {
@@ -351,7 +390,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Address"
+                      label="Address*"
                       value={address}
                       fullWidth
                       onChange={(event) => {
@@ -395,7 +434,7 @@ export default function Home() {
                       type="password"
                       variant="outlined"
                       size="small"
-                      label="Password"
+                      label="Password*"
                       value={password}
                       fullWidth
                       onChange={(event) => {
@@ -408,7 +447,7 @@ export default function Home() {
                       type="password"
                       variant="outlined"
                       size="small"
-                      label="Confirm Password"
+                      label="Confirm Password*"
                       value={cpassword}
                       fullWidth
                       onChange={(event) => {
@@ -419,7 +458,7 @@ export default function Home() {
                 </Grid>
               </Grid>
 
-              <Grid item xs={6} style={{ marginTop: 20 }}>
+              {/* <Grid item xs={6} style={{ marginTop: 20 }}>
                 <Button
                   fullWidth
                   color="primary"
@@ -429,7 +468,7 @@ export default function Home() {
                 >
                   Submit
                 </Button>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} style={{ marginTop: 15 }}></Grid>
               <Grid item xs={7}>
                 <Typography
@@ -483,6 +522,17 @@ export default function Home() {
               }}
             >
               Next
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={handleLogin}
+            >
+              Submit
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">

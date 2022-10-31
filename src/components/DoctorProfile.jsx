@@ -46,76 +46,89 @@ export default function Home() {
   const [cpassword, setCpassword] = React.useState(null);
   const [luser, setLuser] = React.useState(null);
 
-  const [type, setType] = React.useState("doctor")
+  const [type, setType] = React.useState("doctor");
   const handleLogin = () => {
-    var errr = false
-    if ((email == "") || (email == null) ||
-    (password == "") || (password == null) || 
-    (firstname == "") || (firstname == null) || 
-    (lastname == "") || (lastname == null) || 
-    (phone == "") || (phone == null) ||
-    (address == "") || (address == null) ||
-    (dateofbirth == "") || (dateofbirth == null) ||
-    (gender == "") || (gender == null) ||
-    (country == "") || (country == null) ||
-    (password != cpassword) 
-    ){
-      errr = true
+    var errr = false;
+    if (
+      email == "" ||
+      email == null ||
+      password == "" ||
+      password == null ||
+      firstname == "" ||
+      firstname == null ||
+      lastname == "" ||
+      lastname == null ||
+      phone == "" ||
+      phone == null ||
+      address == "" ||
+      address == null ||
+      dateofbirth == "" ||
+      dateofbirth == null ||
+      gender == "" ||
+      gender == null ||
+      country == "" ||
+      country == null ||
+      password != cpassword
+    ) {
+      errr = true;
     }
     if (!errr) {
-      var aurl = type == "patient" ? "http://localhost:8081/api/patient/signup" : "http://localhost:8081/api/doctor/signup"
-      
+      var aurl =
+        type == "patient"
+          ? "http://localhost:8081/api/patient/signup"
+          : "http://localhost:8081/api/doctor/signup";
 
       var datap = {
-        "id": luser.id,
-        "first_name": firstname,
-        "last_name": lastname,
-        "email": email,
-        "phone": phone,
-        "address": address + "," + city + "," + pincode,
-        "date_of_birth": dateofbirth,
-        "sex": gender,
-        "father_name": fathername,
-        "mother_name": mothername,
-        "spouse_name": spousename,
-        "nationality": country,
-        "occupation": occupation,
-        "password": password
-      }
+        id: luser.id,
+        first_name: firstname,
+        last_name: lastname,
+        email: email,
+        phone: phone,
+        address: address + "," + city + "," + pincode,
+        date_of_birth: dateofbirth,
+        sex: gender,
+        father_name: fathername,
+        mother_name: mothername,
+        spouse_name: spousename,
+        nationality: country,
+        occupation: occupation,
+        password: password,
+        action: "update",
+        ddate: new Date(),
+      };
       var datad = {
-        "id": luser.id,
-        "first_name": firstname,
-        "last_name": lastname,
-        "email": email,
-        "phone": phone,
-        "address": address + "," + city + "," + pincode,
-        "date_of_birth": dateofbirth,
-        "sex": gender,
-        "nationality": country,
-        "password": password,
-        "specialization": specialization
-      }
-      console.log(datad)
-      console.log(datap)
+        id: luser.id,
+        first_name: firstname,
+        last_name: lastname,
+        email: email,
+        phone: phone,
+        address: address + "," + city + "," + pincode,
+        date_of_birth: dateofbirth,
+        sex: gender,
+        nationality: country,
+        password: password,
+        specialization: specialization,
+        action: "update",
+        ddate: new Date(),
+      };
       axios({
         method: "POST",
         url: aurl,
-        data: type=="patient"? datap : datad,
+        data: type == "patient" ? datap : datad,
         headers: {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        console.log(res)
-        if(res.status == 200){
+        if (res.status == 200) {
           toast.info("Profile updated successfully", {
             position: "bottom-center",
             pauseOnHover: true,
             draggable: true,
             autoClose: true,
           });
-          console.log(res.data)
-          cookie.save("user", res.data)
-          history("/DoctorHome")
+          console.log(res.data);
+          cookie.save("user", res.data);
+          history("/DoctorHome");
         }
       });
     } else {
@@ -136,21 +149,19 @@ export default function Home() {
       history("/Login");
     }
 
-    setFirstname(dat.first_name)
-    setLastname(dat.last_name)
-    setEmail(dat.email)
-    setPhone(dat.phone)
+    setFirstname(dat.first_name);
+    setLastname(dat.last_name);
+    setEmail(dat.email);
+    setPhone(dat.phone);
     setAddress(dat.address.split(",")[0]);
-    setCity(dat.address.split(",")[1])
-    setPincode(dat.address.split(",")[2])
-    setDob(dat.date_of_birth)
-    setGender(dat.sex)
-    setCountry(dat.nationality)
-    setPassword(dat.password)
-    setCpassword(dat.password)
-    setSpecialization(dat.specialization)
-
-
+    setCity(dat.address.split(",")[1]);
+    setPincode(dat.address.split(",")[2]);
+    setDob(dat.date_of_birth);
+    setGender(dat.sex);
+    setCountry(dat.nationality);
+    setPassword(dat.password);
+    setCpassword(dat.password);
+    setSpecialization(dat.specialization);
   }, []);
 
   return !loader ? (
@@ -164,38 +175,37 @@ export default function Home() {
         <Grid item xs={7}>
           <Paper elevation={3} style={{ padding: "30px 30px 60px 30px" }}>
             <Grid container justifyContent={"center"}>
-            <Grid item xs={10} style={{ marginBottom: 15 }}>
-              </Grid>
+              <Grid item xs={10} style={{ marginBottom: 15 }}></Grid>
 
-              <Grid item xs={10} >
-              <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Firstname"
-                  value={firstname}
-                  fullWidth
-                  onChange={(event) => {
-                    setFirstname(event.target.value);
-                  }}
-                ></TextField>
+              <Grid item xs={10}>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="Firstname"
+                      value={firstname}
+                      fullWidth
+                      onChange={(event) => {
+                        setFirstname(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="Lastname"
+                      value={lastname}
+                      fullWidth
+                      onChange={(event) => {
+                        setLastname(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Lastname"
-                  value={lastname}
-                  fullWidth
-                  onChange={(event) => {
-                    setLastname(event.target.value);
-                  }}
-                ></TextField>
-              </Grid>
-              </Grid>
-              </Grid>
-              <Grid item xs={10} style={{marginTop:10}}>
+              <Grid item xs={10} style={{ marginTop: 10 }}>
                 <TextField
                   variant="outlined"
                   size="small"
@@ -209,136 +219,137 @@ export default function Home() {
               </Grid>
 
               <Grid item xs={10} style={{ marginTop: 10 }}>
-              <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Phone"
-                  value={phone}
-                  fullWidth
-                  onChange={(event) => {
-                    setPhone(event.target.value);
-                  }}
-                ></TextField>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Date of Birth"
-                  value={dateofbirth}
-                  fullWidth
-                  onChange={(event) => {
-                    setDob(event.target.value);
-                  }}
-                ></TextField>
-              </Grid>
-              </Grid>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="Phone"
+                      value={phone}
+                      fullWidth
+                      onChange={(event) => {
+                        setPhone(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="Date of Birth"
+                      value={dateofbirth}
+                      fullWidth
+                      onChange={(event) => {
+                        setDob(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item xs={10} style={{ marginTop: 10 }}>
-              <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Gender"
-                  value={gender}
-                  fullWidth
-                  onChange={(event) => {
-                    setGender(event.target.value);
-                  }}
-                ></TextField>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="Gender"
+                      value={gender}
+                      fullWidth
+                      onChange={(event) => {
+                        setGender(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      label="country"
+                      value={country}
+                      fullWidth
+                      onChange={(event) => {
+                        setCountry(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="country"
-                  value={country}
-                  fullWidth
-                  onChange={(event) => {
-                    setCountry(event.target.value);
-                  }}
-                ></TextField>
-              </Grid>
-              </Grid>
-              </Grid>
-              {type == "doctor"?(
-              <Grid item xs={10} style={{marginTop:10}}>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  label="Specialization"
-                  value={specialization}
-                  fullWidth
-                  onChange={(event) => {
-                    setSpecialization(event.target.value);
-                  }}
-                ></TextField>
-              </Grid>) : null }
+              {type == "doctor" ? (
+                <Grid item xs={10} style={{ marginTop: 10 }}>
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    label="Specialization"
+                    value={specialization}
+                    fullWidth
+                    onChange={(event) => {
+                      setSpecialization(event.target.value);
+                    }}
+                  ></TextField>
+                </Grid>
+              ) : null}
               {type == "patient" ? (
-                 <Grid item xs={10} style={{ marginTop: 10 }}>
-                 <Grid container spacing={1}>
-                 <Grid item xs={6}>
-                   <TextField
-                     variant="outlined"
-                     size="small"
-                     label="Father Name"
-                     value={fathername}
-                     fullWidth
-                     onChange={(event) => {
-                       setFathername(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 <Grid item xs={6}>
-                   <TextField
-                     variant="outlined"
-                     size="small"
-                     label="Mother Name"
-                     value={mothername}
-                     fullWidth
-                     onChange={(event) => {
-                       setMothername(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 </Grid>
-                 </Grid>
-              ):null}
+                <Grid item xs={10} style={{ marginTop: 10 }}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Father Name"
+                        value={fathername}
+                        fullWidth
+                        onChange={(event) => {
+                          setFathername(event.target.value);
+                        }}
+                      ></TextField>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Mother Name"
+                        value={mothername}
+                        fullWidth
+                        onChange={(event) => {
+                          setMothername(event.target.value);
+                        }}
+                      ></TextField>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              ) : null}
               {type == "patient" ? (
-                 <Grid item xs={10} style={{ marginTop: 10 }}>
-                 <Grid container spacing={1}>
-                 <Grid item xs={6}>
-                   <TextField
-                     variant="outlined"
-                     size="small"
-                     label="Spouse Name"
-                     value={spousename}
-                     fullWidth
-                     onChange={(event) => {
-                       setSpousename(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 <Grid item xs={6}>
-                   <TextField
-                     variant="outlined"
-                     size="small"
-                     label="Occupation"
-                     value={occupation}
-                     fullWidth
-                     onChange={(event) => {
-                       setOccupation(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 </Grid>
-                 </Grid>
-              ):null}
+                <Grid item xs={10} style={{ marginTop: 10 }}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Spouse Name"
+                        value={spousename}
+                        fullWidth
+                        onChange={(event) => {
+                          setSpousename(event.target.value);
+                        }}
+                      ></TextField>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Occupation"
+                        value={occupation}
+                        fullWidth
+                        onChange={(event) => {
+                          setOccupation(event.target.value);
+                        }}
+                      ></TextField>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              ) : null}
 
-<Grid item xs={10}>
+              <Grid item xs={10}>
                 <Grid container spacing={1}>
                   <Grid item xs={6} style={{ marginTop: 10 }}>
                     <TextField
@@ -380,40 +391,40 @@ export default function Home() {
                   </Grid>
                 </Grid>
               </Grid>
-              
+
               <Grid item xs={10} style={{ marginTop: 10 }}>
-                 <Grid container spacing={1}>
-                 <Grid item xs={6}>
-                   <TextField
-                     type="password"
-                     variant="outlined"
-                     size="small"
-                     label="Password"
-                     value={password}
-                     fullWidth
-                     onChange={(event) => {
-                       setPassword(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 <Grid item xs={6}>
-                   <TextField
-                     type="password"
-                     variant="outlined"
-                     size="small"
-                     label="Confirm Password"
-                     value={cpassword}
-                     fullWidth
-                     onChange={(event) => {
-                       setCpassword(event.target.value);
-                     }}
-                   ></TextField>
-                 </Grid>
-                 </Grid>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="password"
+                      variant="outlined"
+                      size="small"
+                      label="Password"
+                      value={password}
+                      fullWidth
+                      onChange={(event) => {
+                        setPassword(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="password"
+                      variant="outlined"
+                      size="small"
+                      label="Confirm Password"
+                      value={cpassword}
+                      fullWidth
+                      onChange={(event) => {
+                        setCpassword(event.target.value);
+                      }}
+                    ></TextField>
+                  </Grid>
+                </Grid>
               </Grid>
 
               <Grid item xs={6} style={{ marginTop: 20 }}>
-                <Button
+                {/* <Button
                   fullWidth
                   color="primary"
                   variant="contained"
@@ -421,31 +432,39 @@ export default function Home() {
                   onClick={handleLogin}
                 >
                   Submit
-                </Button>
+                </Button> */}
               </Grid>
             </Grid>
           </Paper>
         </Grid>
       </Grid>
-      <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
+      <AppBar
+        position="fixed"
+        style={{
+          boxShadow: "none",
+          bottom: 0,
+          top: "auto",
+          backgroundColor: "black",
+        }}
+      >
         <Toolbar>
-        <div style={{flexGrow:0.5}} />
-        <IconButton edge="end" color="inherit">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              history("/DoctorHome");
-            }}
-            style={{backgroundColor:"white", color:"black"}}
+          <div style={{ flexGrow: 0.5 }} />
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                history("/DoctorHome");
+              }}
+              style={{ backgroundColor: "white", color: "black" }}
             >
-            Previous
-          </Button>
+              Previous
+            </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
-              style={{backgroundColor:"grey", color:"black"}}
+              style={{ backgroundColor: "grey", color: "black" }}
               color="primary"
               disabled
             >
@@ -453,19 +472,74 @@ export default function Home() {
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
-          <Button
+            <Button
               variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={handleLogin}
+              style={{ backgroundColor: "white", color: "black" }}
+            >
+              Submit
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
               color="primary"
               onClick={() => {
-                cookie.remove('user')
+                var datad = {
+                  id: luser.id,
+                  first_name: firstname,
+                  last_name: lastname,
+                  email: email,
+                  phone: phone,
+                  address: address + "," + city + "," + pincode,
+                  date_of_birth: dateofbirth,
+                  sex: gender,
+                  nationality: country,
+                  password: password,
+                  specialization: specialization,
+                  action: "delete",
+                  ddate: new Date(),
+                };
+                axios({
+                  method: "POST",
+                  url: "http://localhost:8081/api/doctor/signup",
+                  data: datad,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }).then((res) => {
+                  if (res.status == 200) {
+                    cookie.remove("user");
+                    toast.info("Account deleted successfully", {
+                      position: "bottom-center",
+                      pauseOnHover: true,
+                      draggable: true,
+                      autoClose: true,
+                    });
+                    history("/Login");
+                  }
+                });
+              }}
+              style={{ backgroundColor: "red", color: "white" }}
+            >
+              Delete My Account
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              color="primary"
+              onClick={() => {
+                cookie.remove("user");
                 toast.info("Application exited successfully", {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
                   autoClose: true,
                 });
-                history('/Login')
+                history("/Login");
               }}
             >
               Exit
