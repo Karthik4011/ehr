@@ -80,7 +80,6 @@ export default function Home() {
 
   }
   const proceedSign = () => {
-    alert("proceed")
     var errr = false;
     if (
       email == "" ||

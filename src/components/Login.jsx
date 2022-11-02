@@ -36,24 +36,6 @@ export default function Home() {
         type == "patient"
           ? "http://localhost:8081/api/patient/login"
           : "http://localhost:8081/api/doctor/login";
-      axios({
-        method: "POST",
-        url: aurl,
-        data: {
-          email: email,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
-        console.log(res);
-        toast.info("Login successfull", {
-          position: "bottom-center",
-          pauseOnHover: true,
-          draggable: true,
-          autoClose: true,
-        });
-      });
       var hurl = type == "patient" ? "/PatientHome" : "/DoctorHome";
       axios({
         method: "POST",
@@ -106,7 +88,6 @@ export default function Home() {
   useEffect(() => {
     setLoader(true);
   }, []);
-
   return !loader ? (
     <Backdrop style={{ backgroundColor: "white" }} open={loader}>
       <img src={GIF2} />
