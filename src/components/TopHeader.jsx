@@ -121,7 +121,7 @@ export default function Home() {
             style ={{cursor:"pointer", backgroundColor:location.pathname=="/Signup"?"white":"", color:location.pathname=="/Signup"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Signup"?5:5}}
             onClick={()=>{ history("/Signup");}}
           >
-            Signup
+            Register
           </Typography>
           <Typography
             variant="h6"

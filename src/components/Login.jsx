@@ -177,7 +177,7 @@ export default function Home() {
                   Don't Have Account? Create Account
                 </Typography>
               </Grid>
-              <Grid item xs={5} style={{ marginTop: 5 }}>
+              <Grid item xs={5} style={{ marginTop: 15 }}>
                 <Typography
                   style={{
                     fontSize: 12,
@@ -192,11 +192,62 @@ export default function Home() {
                   Forgot Password?
                 </Typography>
               </Grid>
+              <Grid item xs={12} style={{marginTop:50}}>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    history("/");
+                  }}
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  Home
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    history("/");
+                  }}
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  Previous
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    history("/Signup");
+                  }}
+                >
+                  Next
+                </Button>&nbsp;
+                <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  onClick={handleLogin}
+                >
+                  Submit
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    window.open("about:blank", "_self");
+                    window.close();
+                  }}
+                >
+                  Exit
+                </Button>
+              </Grid>
             </Grid>
           </Paper>
         </Grid>
       </Grid>
-      <AppBar
+      {/* <AppBar
         position="fixed"
         style={{
           boxShadow: "none",
@@ -256,7 +307,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
     </Box>
   );
 }

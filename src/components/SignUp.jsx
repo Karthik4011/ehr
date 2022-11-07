@@ -48,37 +48,36 @@ export default function Home() {
   const handleLogin = () => {
     var alrdy = false;
     var geturl =
-        type == "patient"
-          ? "http://localhost:8081/api/patients"
-          : "http://localhost:8081/api/doctors";
+      type == "patient"
+        ? "http://localhost:8081/api/patients"
+        : "http://localhost:8081/api/doctors";
     axios({
-        method: "GET",
-        url: geturl,
-        headers: {
-          "Content-Type": "application/json",
-        },
+      method: "GET",
+      url: geturl,
+      headers: {
+        "Content-Type": "application/json",
+      },
     }).then((res) => {
-        console.log(res);
-        var data = res.data;
-        for(var i=0;i<data.length;i++){
-          if(email == data[i].email){
-            alrdy = true 
-          }
+      console.log(res);
+      var data = res.data;
+      for (var i = 0; i < data.length; i++) {
+        if (email == data[i].email) {
+          alrdy = true;
         }
-        if(alrdy){
-          toast.info("User already exists!!!", {
-            position: "bottom-center",
-            pauseOnHover: true,
-            draggable: true,
-            autoClose: true,
-          });
-          setEmail("")
-        }else{
-          proceedSign()
-        }
+      }
+      if (alrdy) {
+        toast.info("User already exists!!!", {
+          position: "bottom-center",
+          pauseOnHover: true,
+          draggable: true,
+          autoClose: true,
+        });
+        setEmail("");
+      } else {
+        proceedSign();
+      }
     });
-
-  }
+  };
   const proceedSign = () => {
     var errr = false;
     if (
@@ -125,7 +124,7 @@ export default function Home() {
         occupation: occupation,
         password: password,
         action: "insert",
-        pdate: new Date()
+        pdate: new Date(),
       };
       var datad = {
         first_name: firstname,
@@ -139,7 +138,7 @@ export default function Home() {
         password: password,
         specialization: specialization,
         action: "insert",
-        ddate: new Date()
+        ddate: new Date(),
       };
       axios({
         method: "POST",
@@ -240,7 +239,7 @@ export default function Home() {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={10} style={{ marginTop: 10 }}>
+              <Grid item xs={10} style={{ marginTop: 5 }}>
                 <TextField
                   variant="outlined"
                   size="small"
@@ -253,7 +252,7 @@ export default function Home() {
                 ></TextField>
               </Grid>
 
-              <Grid item xs={10} style={{ marginTop: 10 }}>
+              <Grid item xs={10} style={{ marginTop: 5 }}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
                     <TextField
@@ -281,7 +280,7 @@ export default function Home() {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={10} style={{ marginTop: 10 }}>
+              <Grid item xs={10} style={{ marginTop: 5 }}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
                     <TextField
@@ -310,7 +309,7 @@ export default function Home() {
                 </Grid>
               </Grid>
               {type == "doctor" ? (
-                <Grid item xs={10} style={{ marginTop: 10 }}>
+                <Grid item xs={10} style={{ marginTop: 5 }}>
                   <TextField
                     variant="outlined"
                     size="small"
@@ -323,7 +322,7 @@ export default function Home() {
                   ></TextField>
                 </Grid>
               ) : null}
-              {type == "patient" ? (
+              {/* {type == "patient" ? (
                 <Grid item xs={10} style={{ marginTop: 10 }}>
                   <Grid container spacing={1}>
                     <Grid item xs={6}>
@@ -352,8 +351,8 @@ export default function Home() {
                     </Grid>
                   </Grid>
                 </Grid>
-              ) : null}
-              {type == "patient" ? (
+              ) : null} */}
+              {/* {type == "patient" ? (
                 <Grid item xs={10} style={{ marginTop: 10 }}>
                   <Grid container spacing={1}>
                     <Grid item xs={6}>
@@ -382,10 +381,10 @@ export default function Home() {
                     </Grid>
                   </Grid>
                 </Grid>
-              ) : null}
+              ) : null} */}
               <Grid item xs={10}>
                 <Grid container spacing={1}>
-                  <Grid item xs={6} style={{ marginTop: 10 }}>
+                  <Grid item xs={6} style={{ marginTop: 5 }}>
                     <TextField
                       variant="outlined"
                       size="small"
@@ -398,7 +397,7 @@ export default function Home() {
                     ></TextField>
                   </Grid>
 
-                  <Grid item xs={3} style={{ marginTop: 10 }}>
+                  <Grid item xs={3} style={{ marginTop: 5 }}>
                     <TextField
                       variant="outlined"
                       size="small"
@@ -411,11 +410,11 @@ export default function Home() {
                     ></TextField>
                   </Grid>
 
-                  <Grid item xs={3} style={{ marginTop: 10 }}>
+                  <Grid item xs={3} style={{ marginTop: 5 }}>
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Pincode"
+                      label="Pin"
                       value={pincode}
                       fullWidth
                       onChange={(event) => {
@@ -426,7 +425,7 @@ export default function Home() {
                 </Grid>
               </Grid>
 
-              <Grid item xs={10} style={{ marginTop: 10 }}>
+              <Grid item xs={10} style={{ marginTop: 5 }}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
                     <TextField
@@ -484,11 +483,62 @@ export default function Home() {
                   Existing User? Login Here
                 </Typography>
               </Grid>
+              <Grid item xs={12} style={{marginTop: 50}}>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    history("/");
+                  }}
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  Home
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    history("/Login");
+                  }}
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  Previous
+                </Button>&nbsp;
+                <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  onClick={handleLogin}
+                >
+                  Submit
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    history("/About");
+                  }}
+                >
+                  Next
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    window.open("about:blank", "_self");
+                    window.close();
+                  }}
+                >
+                  Exit
+                </Button>
+              </Grid>
             </Grid>
           </Paper>
         </Grid>
       </Grid>
-      <AppBar
+      {/* <AppBar
         position="fixed"
         style={{
           boxShadow: "none",
@@ -511,6 +561,21 @@ export default function Home() {
               Previous
             </Button>
           </IconButton>
+
+          <IconButton edge="end" color="inherit">
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={handleLogin}
+            >
+              Submit
+            </Button>
+          </IconButton>
+
+
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
@@ -523,17 +588,11 @@ export default function Home() {
               Next
             </Button>
           </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Button
-              fullWidth
-              color="primary"
-              variant="contained"
-              style={{ backgroundColor: "white", color: "black" }}
-              onClick={handleLogin}
-            >
-              Submit
-            </Button>
-          </IconButton>
+
+
+
+
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
@@ -548,7 +607,7 @@ export default function Home() {
             </Button>
           </IconButton>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
     </Box>
   );
 }

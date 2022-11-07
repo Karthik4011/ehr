@@ -367,7 +367,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Search Doctor"
+                      label="Search doctor by name/specialization"
                       value={search}
                       fullWidth
                       onChange={(event) => {
