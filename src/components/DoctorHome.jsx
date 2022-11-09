@@ -369,7 +369,7 @@ export default function Home() {
         </Grid>
       </Grid>
 
-     <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"black"}}>
+     <AppBar position="fixed"  style={{boxShadow:"none",bottom:0,top:"auto", backgroundColor:"white"}}>
         <Toolbar>
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
