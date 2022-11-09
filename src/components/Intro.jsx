@@ -160,7 +160,7 @@ export default function Home() {
               color="primary"
               disabled={true}
             >
-              Previous
+              Back
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">

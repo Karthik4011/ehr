@@ -118,7 +118,7 @@ export default function Home() {
                     history("/Signup");
                   }}
                 >
-                  Previous
+                  Back
                 </Button>&nbsp;
                 <Button
                   variant="contained"

@@ -211,7 +211,7 @@ export default function Home() {
                   }}
                   style={{ backgroundColor: "white", color: "black" }}
                 >
-                  Previous
+                  Back
                 </Button>&nbsp;
                 <Button
                   variant="contained"

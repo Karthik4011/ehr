@@ -244,7 +244,7 @@ export default function Home() {
                 history("/PatientHome");
               }}
             >
-              Previous
+              Back
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">

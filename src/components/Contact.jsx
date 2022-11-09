@@ -118,7 +118,7 @@ export default function Home() {
                     history("/About");
                   }}
                 >
-                  Previous
+                  Back
                 </Button>
                 &nbsp;
                 <Button
