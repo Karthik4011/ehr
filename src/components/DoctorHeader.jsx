@@ -12,6 +12,7 @@ import Drawer from "@mui/material/Drawer";
 import LogoutIcon from '@mui/icons-material/Logout';
 import cookie from "react-cookies";
 import { ToastContainer, toast } from "react-toastify";
+import logo from "../assets/logo.png";
 
 
 
@@ -62,14 +63,37 @@ export default function Home() {
     </Backdrop>
   ) : (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{boxShadow:"none", backgroundColor:"black"}}>
+      <AppBar  position="static" style={{boxShadow:"none", backgroundColor:"black"}}>
+      <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block", textAlign: "left" },
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            <div>
+
+            <img
+              src={logo}
+              style={{ width: 100, marginTop: 5, borderRadius: 50,verticalAlign:"middle" }}
+            ></img>
+            <span style={{marginLeft:10}}>Electronic Health Record</span>
+            </div>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <AppBar position="static" style={{boxShadow:"none", backgroundColor:"white"}}>
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorHome"?"white":"", color:location.pathname=="/DoctorHome"?"black":"", textAlign:"center", borderRadius: location.pathname=="/DoctorHome"?5:5}}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorHome"?"black":"", color:location.pathname=="/DoctorHome"?"white":"black", textAlign:"center", borderRadius: location.pathname=="/DoctorHome"?5:5}}
             onClick={()=>{ history("/DoctorHome");}}
           >
             Home
@@ -79,7 +103,7 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorProfile"?"white":"", color:location.pathname=="/DoctorProfile"?"black":"", textAlign:"center", borderRadius: location.pathname=="/DoctorProfile"?5:5}}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorProfile"?"black":"", color:location.pathname=="/DoctorProfile"?"white":"black", textAlign:"center", borderRadius: location.pathname=="/DoctorProfile"?5:5}}
             onClick={()=>{ history("/DoctorProfile");}}
           >
             Account
@@ -122,7 +146,7 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer"}}
+            style ={{cursor:"pointer", color:"black"}}
             onClick={()=>{
               cookie.remove('user')
               toast.info("Logged out successfull", {

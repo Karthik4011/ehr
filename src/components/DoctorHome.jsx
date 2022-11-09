@@ -173,7 +173,7 @@ export default function Home() {
               <Paper>
                 <Grid
                   container
-                  style={{ padding: 10, maxHeight: 700, overflow: "scroll" }}
+                  style={{ padding: 10, maxHeight: 600, overflow: "scroll" }}
                 >
                   <Grid item xs={12}>
                     <Typography>Appointment History</Typography>

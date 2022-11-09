@@ -126,7 +126,7 @@ export default function Home() {
           </Typography>
         </Grid>
         <Grid item xs={12} style={{ marginTop: 100 }}>
-          {/* <img src={gif} style={{width:1000, borderRadius:50}}></img> */}
+           <img src={gif} style={{width:700, borderRadius:50}}></img>
         </Grid>
       </Grid>
       <AppBar

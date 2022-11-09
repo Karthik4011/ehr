@@ -446,9 +446,9 @@ export default function Home() {
         position="fixed"
         style={{
           boxShadow: "none",
-          bottom: 0,
+          bottom: 80,
           top: "auto",
-          backgroundColor: "black",
+          backgroundColor: "white",
         }}
       >
         <Toolbar>

@@ -13,26 +13,21 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import cookie from "react-cookies";
-import gif from '../assets/gif.gif'
+import gif from "../assets/gif.gif";
 import IconButton from "@mui/material/IconButton";
-import logo from '../assets/logo.png';
-import desc from '../assets/desc.png'
-
-
-
-
+import logo from "../assets/logo.png";
+import desc from "../assets/desc.png";
 
 export default function Home() {
   const history = useNavigate();
   const location = useLocation();
-
 
   const [loader, setLoader] = React.useState(true);
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
 
   const handleLogin = () => {
-      if(email != "" & email != null){
+    if ((email != "") & (email != null)) {
       axios({
         method: "POST",
         url: "http://localhost:8081/api/login",
@@ -42,34 +37,34 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-      }).then((res)=>{
-          if(res.data.password == password){
+      }).then((res) => {
+        if (res.data.password == password) {
           toast.info("Login successfull", {
             position: "bottom-center",
             pauseOnHover: true,
             draggable: true,
             autoClose: true,
           });
-          history("/Home")
-          cookie.save('user', res.data)
-        }else{
-            toast.info("Incorrect email or password", {
-                position: "bottom-center",
-                pauseOnHover: true,
-                draggable: true,
-                autoClose: true,
-              });
-        }
-      })
-    }else{
-        toast.info("Please enter Email and Passowrd", {
+          history("/Home");
+          cookie.save("user", res.data);
+        } else {
+          toast.info("Incorrect email or password", {
             position: "bottom-center",
             pauseOnHover: true,
             draggable: true,
             autoClose: true,
           });
+        }
+      });
+    } else {
+      toast.info("Please enter Email and Passowrd", {
+        position: "bottom-center",
+        pauseOnHover: true,
+        draggable: true,
+        autoClose: true,
+      });
     }
-  }
+  };
 
   useEffect(() => {
     setLoader(true);
@@ -81,25 +76,55 @@ export default function Home() {
     </Backdrop>
   ) : (
     <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static" style={{boxShadow:"none",backgroundColor:"black"}}>
+      <AppBar
+        position="static"
+        style={{ boxShadow: "none", backgroundColor: "black" }}
+      >
         <Toolbar>
-        <Typography
+          <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block", textAlign:"left" } }}
-            style ={{cursor:"pointer"}}
-            onClick={()=>{ history("/");}}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block", textAlign: "left" },
+            }}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              history("/");
+            }}
           >
-            <img src={logo} style={{width:100,marginTop:5,borderRadius:50}}></img>
+            <div>
+
+            <img
+              src={logo}
+              style={{ width: 100, marginTop: 5, borderRadius: 50,verticalAlign:"middle" }}
+            ></img>
+            <span style={{marginLeft:10}}>Electronic Health Record</span>
+            </div>
           </Typography>
-        <Typography
+        </Toolbar>
+      </AppBar>
+      <AppBar
+        position="static"
+        style={{ boxShadow: "none", backgroundColor: "white" }}
+      >
+        <Toolbar>
+          <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/"?"white":"", color:location.pathname=="/"?"black":"", textAlign:"center", borderRadius: location.pathname=="/intor"?5:5}}
-            onClick={()=>{ history("/");}}
+            style={{
+              cursor: "pointer",
+              backgroundColor: location.pathname == "/" ? "black" : "",
+              color: location.pathname == "/" ? "white" : "black",
+              textAlign: "center",
+              borderRadius: location.pathname == "/intor" ? 5 : 5,
+            }}
+            onClick={() => {
+              history("/");
+            }}
           >
             Home
           </Typography>
@@ -108,8 +133,16 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Login"?"white":"", color:location.pathname=="/Login"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Login"?5:5}}
-            onClick={()=>{ history("/Login");}}
+            style={{
+              cursor: "pointer",
+              backgroundColor: location.pathname == "/Login" ? "black" : "",
+              color: location.pathname == "/Login" ? "white" : "black",
+              textAlign: "center",
+              borderRadius: location.pathname == "/Login" ? 5 : 5,
+            }}
+            onClick={() => {
+              history("/Login");
+            }}
           >
             Login
           </Typography>
@@ -118,8 +151,16 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Signup"?"white":"", color:location.pathname=="/Signup"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Signup"?5:5}}
-            onClick={()=>{ history("/Signup");}}
+            style={{
+              cursor: "pointer",
+              backgroundColor: location.pathname == "/Signup" ? "black" : "",
+              color: location.pathname == "/Signup" ? "white" : "black",
+              textAlign: "center",
+              borderRadius: location.pathname == "/Signup" ? 5 : 5,
+            }}
+            onClick={() => {
+              history("/Signup");
+            }}
           >
             Register
           </Typography>
@@ -128,24 +169,39 @@ export default function Home() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/About"?"white":"", color:location.pathname=="/About"?"black":"", textAlign:"center", borderRadius: location.pathname=="/About"?5:5}}
-            onClick={()=>{ history("/About");}}
+            style={{
+              cursor: "pointer",
+              backgroundColor: location.pathname == "/About" ? "black" : "",
+              color: location.pathname == "/About" ? "white" : "black",
+              textAlign: "center",
+              borderRadius: location.pathname == "/About" ? 5 : 5,
+            }}
+            onClick={() => {
+              history("/About");
+            }}
           >
-           About
+            About
           </Typography>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style ={{cursor:"pointer", backgroundColor:location.pathname=="/Contact"?"white":"", color:location.pathname=="/Contact"?"black":"", textAlign:"center", borderRadius: location.pathname=="/Contact"?5:5}}
-            onClick={()=>{ history("/Contact");}}
+            style={{
+              cursor: "pointer",
+              backgroundColor: location.pathname == "/Contact" ? "black" : "",
+              color: location.pathname == "/Contact" ? "white" : "black",
+              textAlign: "center",
+              borderRadius: location.pathname == "/Contact" ? 5 : 5,
+            }}
+            onClick={() => {
+              history("/Contact");
+            }}
           >
-           Contact
+            Contact
           </Typography>
         </Toolbar>
-    </AppBar>
-     
+      </AppBar>
     </Box>
   );
 }
