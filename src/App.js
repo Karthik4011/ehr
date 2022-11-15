@@ -13,6 +13,8 @@ import PatientProfile from "./components/PatientProfile";
 import DoctorProfile from "./components/DoctorProfile";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import DoctorDocuments from "./components/DoctorDocuments";
+
 
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +36,7 @@ function App() {
             <Route exact path="/Documents" element={<Documents />}></Route>
             <Route exact path="/PatientProfile" element={<PatientProfile />}></Route>
             <Route exact path="/DoctorProfile" element={<DoctorProfile />}></Route>
+            <Route exact path="/DoctorDocuments" element={<DoctorDocuments />}></Route>
 
           </Routes>
       </Router>

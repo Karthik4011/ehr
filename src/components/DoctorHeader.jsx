@@ -108,6 +108,16 @@ export default function Home() {
           >
             Account
           </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            style ={{cursor:"pointer", backgroundColor:location.pathname=="/DoctorDocuments"?"black":"", color:location.pathname=="/DoctorDocuments"?"white":"black", textAlign:"center", borderRadius: location.pathname=="/DoctorProfile"?5:5}}
+            onClick={()=>{ history("/DoctorDocuments");}}
+          >
+            Upload Reports
+          </Typography>
           {/*<Typography
             variant="h6"
             noWrap
