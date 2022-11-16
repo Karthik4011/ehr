@@ -458,17 +458,19 @@ export default function Home() {
               }}
               style={{ backgroundColor: "white", color: "black" }}
             >
-              Back
+              Home
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
-              style={{ backgroundColor: "grey", color: "black" }}
               color="primary"
-              disabled
+              onClick={() => {
+                history("/DoctorHome");
+              }}
+              style={{ backgroundColor: "white", color: "black" }}
             >
-              Next
+              Back
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
@@ -481,6 +483,19 @@ export default function Home() {
               Submit
             </Button>
           </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              color="primary"
+              onClick={() => {
+                history("/DoctorDocuments");
+              }}
+            >
+              Next
+            </Button>
+          </IconButton>
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"

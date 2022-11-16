@@ -330,7 +330,7 @@ export default function Home() {
                 history("/PatientHome");
               }}
             >
-              Previous
+              Home
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
@@ -339,22 +339,38 @@ export default function Home() {
               style={{ backgroundColor: "white", color: "black" }}
               color="primary"
               onClick={() => {
-                history("/PatientProfile");
+                history("/DoctorProfile");
+              }}
+            >
+              Back
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              color="primary"
+            >
+              Submit
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", color: "black" }}
+              color="primary"
+              onClick={()=>{
+                cookie.remove('user')
+                toast.info("Logged out successfull", {
+                  position: "bottom-center",
+                  pauseOnHover: true,
+                  draggable: true,
+                  autoClose: true,
+                });
+                history('/Login')
               }}
             >
               Next
-            </Button>
-          </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "white", color: "black" }}
-              color="primary"
-              onClick={() => {
-                history("/PatientHome");
-              }}
-            >
-              Home
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">

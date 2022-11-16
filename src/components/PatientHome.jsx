@@ -528,6 +528,38 @@ export default function Home() {
         <IconButton edge="end" color="inherit">
           </IconButton>
           <IconButton edge="end" color="inherit">
+          <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/PatientHome");
+              }}
+            >
+              Home
+            </Button>
+            </IconButton>
+            <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+            >
+              Back
+            </Button>
+            
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+          <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+            >
+              submit
+            </Button>
+            </IconButton>
+
+          <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
               style={{backgroundColor:"white", color:"black"}}
@@ -540,18 +572,7 @@ export default function Home() {
             </Button>
             
           </IconButton>
-          <IconButton edge="end" color="inherit">
-          <Button
-              variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
-              color="primary"
-              onClick={() => {
-                history("/PatientHome");
-              }}
-            >
-              Home
-            </Button>
-            </IconButton>
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"

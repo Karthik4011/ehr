@@ -235,6 +235,19 @@ export default function Home() {
         <div style={{flexGrow:0.5}} />
         <IconButton edge="end" color="inherit">
           </IconButton>
+          
+          <IconButton edge="end" color="inherit">
+          <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/PatientHome");
+              }}
+            >
+              Home
+            </Button>
+            </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
@@ -245,6 +258,16 @@ export default function Home() {
               }}
             >
               Back
+            </Button>
+          </IconButton>
+          
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+            >
+              Submit
             </Button>
           </IconButton>
           <IconButton edge="end" color="inherit">
@@ -259,18 +282,6 @@ export default function Home() {
               Next
             </Button>
           </IconButton>
-          <IconButton edge="end" color="inherit">
-          <Button
-              variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
-              color="primary"
-              onClick={() => {
-                history("/PatientHome");
-              }}
-            >
-              Home
-            </Button>
-            </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"

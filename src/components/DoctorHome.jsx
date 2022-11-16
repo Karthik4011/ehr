@@ -21,6 +21,7 @@ import IconButton from "@mui/material/IconButton";
 import { ToastContainer, toast } from "react-toastify";
 
 
+
 export default function Home() {
   const history = useNavigate();
 
@@ -241,7 +242,7 @@ export default function Home() {
                                       variant="contained"
                                       disabled
                                       size="small"
-                                      style={{ fontSize: 8 }}
+                                      style={{ fontSize: 8,backgroundColor:'green',color:'white' }}
                                     >
                                       Completed
                                     </Button>
@@ -375,18 +376,6 @@ export default function Home() {
         <IconButton edge="end" color="inherit">
           </IconButton>
           <IconButton edge="end" color="inherit">
-            <Button
-              variant="contained"
-              style={{backgroundColor:"white", color:"black"}}
-              color="primary"
-              onClick={() => {
-                history("/DoctorProfile");
-              }}
-            >
-              Next
-            </Button>
-          </IconButton>
-          <IconButton edge="end" color="inherit">
           <Button
               variant="contained"
               style={{backgroundColor:"white", color:"black"}}
@@ -398,6 +387,43 @@ export default function Home() {
               Home
             </Button>
             </IconButton>
+            <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/DoctorHome");
+              }}
+            >
+              Back
+            </Button>
+            </IconButton>
+            <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/DoctorHome");
+              }}
+            >
+              Submit
+            </Button>
+            </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              style={{backgroundColor:"white", color:"black"}}
+              color="primary"
+              onClick={() => {
+                history("/DoctorProfile");
+              }}
+            >
+              Next
+            </Button>
+          </IconButton>
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"

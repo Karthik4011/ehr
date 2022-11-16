@@ -458,6 +458,18 @@ export default function Home() {
               variant="contained"
               color="primary"
               onClick={() => {
+                history("/PatientHome");
+              }}
+              style={{ backgroundColor: "white", color: "black" }}
+            >
+              Home
+            </Button>
+          </IconButton>
+          <IconButton edge="end" color="inherit">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
                 history("/Documents");
               }}
               style={{ backgroundColor: "white", color: "black" }}
@@ -528,9 +540,18 @@ export default function Home() {
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
-              style={{ backgroundColor: "grey", color: "black" }}
               color="primary"
-              disabled
+              style={{ backgroundColor: "white", color: "black" }}
+              onClick={() => {
+                cookie.remove("user");
+                toast.info("Logged out successfull", {
+                  position: "bottom-center",
+                  pauseOnHover: true,
+                  draggable: true,
+                  autoClose: true,
+                });
+                history("/Login");
+              }}
             >
               Next
             </Button>
