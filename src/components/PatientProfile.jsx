@@ -125,7 +125,7 @@ export default function Home() {
             position: "bottom-center",
             pauseOnHover: true,
             draggable: true,
-            autoClose: true,
+            autoClose: false,
           });
           console.log(res.data);
           cookie.save("user", res.data);
@@ -137,7 +137,7 @@ export default function Home() {
         position: "bottom-center",
         pauseOnHover: true,
         draggable: true,
-        autoClose: true,
+        autoClose: false,
       });
     }
   };
@@ -524,7 +524,7 @@ export default function Home() {
                       position: "bottom-center",
                       pauseOnHover: true,
                       draggable: true,
-                      autoClose: true,
+                      autoClose: false,
                     });
 
                     cookie.remove("user");
@@ -548,7 +548,7 @@ export default function Home() {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
-                  autoClose: true,
+                  autoClose: false,
                 });
                 history("/Login");
               }}
@@ -567,7 +567,7 @@ export default function Home() {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
-                  autoClose: true,
+                  autoClose: false,
                 });
                 history("/Login");
               }}

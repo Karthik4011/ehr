@@ -70,7 +70,7 @@ export default function Home() {
           position: "bottom-center",
           pauseOnHover: true,
           draggable: true,
-          autoClose: true,
+          autoClose: false,
         });
         setEmail("");
       } else {

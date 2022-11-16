@@ -91,7 +91,7 @@ export default function Home() {
                 position: "bottom-center",
                 pauseOnHover: true,
                 draggable: true,
-                autoClose: true,
+                autoClose: false,
               });
 
               setImageurl(url);
@@ -365,7 +365,7 @@ export default function Home() {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
-                  autoClose: true,
+                  autoClose: false,
                 });
                 history('/Login')
               }}
@@ -384,7 +384,7 @@ export default function Home() {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
-                  autoClose: true,
+                  autoClose: false,
                 });
                 history("/Login");
               }}

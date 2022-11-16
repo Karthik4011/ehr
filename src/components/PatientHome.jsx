@@ -176,7 +176,7 @@ export default function Home() {
           position: "bottom-center",
           pauseOnHover: true,
           draggable: true,
-          autoClose: true,
+          autoClose: false,
         });
         axios({
           method: "GET",
@@ -415,7 +415,7 @@ export default function Home() {
                                 </Grid>
                                 <Grid item xs={12} style={{ marginTop: 10 }}>
                                   <Typography style={{ fontSize: 14 }}>
-                                    {doc.first_name}
+                                   Dr. {doc.first_name}
                                   </Typography>
                                   <Typography style={{ fontSize: 12 }}>
                                     {doc.email}
@@ -584,7 +584,7 @@ export default function Home() {
                   position: "bottom-center",
                   pauseOnHover: true,
                   draggable: true,
-                  autoClose: true,
+                  autoClose: false,
                 });
                 history('/Login')
               }}
