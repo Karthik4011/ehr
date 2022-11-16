@@ -151,20 +151,20 @@ export default function Home() {
         console.log(res);
         if (res.status == 200) {
           toast.info("Account created successfully", {
-            position: "bottom-center",
+            position: "top-center",
             pauseOnHover: true,
             draggable: true,
-            autoClose: true,
+            autoClose: false,
           });
           history("/Login");
         }
       });
     } else {
       toast.info("Please enter All details", {
-        position: "bottom-center",
+        position: "top-center",
         pauseOnHover: true,
         draggable: true,
-        autoClose: true,
+        autoClose: false,
       });
     }
   };

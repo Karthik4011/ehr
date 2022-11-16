@@ -50,37 +50,37 @@ export default function Home() {
         console.log(res);
         if (res.data.password == password && res.data.action != "delete") {
           toast.info("Login successfull", {
-            position: "bottom-center",
+            position: "top-center",
             pauseOnHover: true,
             draggable: true,
-            autoClose: true,
+            autoClose: false,
           });
           history(hurl);
           cookie.save("user", res.data);
         } else {
           if (res.data.action == "delete") {
             toast.info("User Account is deleted.", {
-              position: "bottom-center",
+              position: "top-center",
               pauseOnHover: true,
               draggable: true,
-              autoClose: true,
+              autoClose: false,
             });
           } else {
             toast.info("Incorrect email or password", {
-              position: "bottom-center",
+              position: "top-center",
               pauseOnHover: true,
               draggable: true,
-              autoClose: true,
+              autoClose: false,
             });
           }
         }
       });
     } else {
       toast.info("Please enter Email and Passowrd", {
-        position: "bottom-center",
+        position: "top-center",
         pauseOnHover: true,
         draggable: true,
-        autoClose: true,
+        autoClose: false,
       });
     }
   };

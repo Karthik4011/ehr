@@ -100,7 +100,7 @@ export default function Home() {
               src={logo}
               style={{ width: 100, marginTop: 5, borderRadius: 50,verticalAlign:"middle" }}
             ></img>
-            <span style={{marginLeft:10}}>Electronic Health Record</span>
+            <span style={{marginLeft:10}}>Electronic Medical Health Record</span>
             </div>
           </Typography>
         </Toolbar>
@@ -180,7 +180,7 @@ export default function Home() {
               history("/About");
             }}
           >
-            About
+            About Us
           </Typography>
           <Typography
             variant="h6"
@@ -198,7 +198,7 @@ export default function Home() {
               history("/Contact");
             }}
           >
-            Contact
+            Contact Us
           </Typography>
         </Toolbar>
       </AppBar>

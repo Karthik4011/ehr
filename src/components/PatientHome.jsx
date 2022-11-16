@@ -229,7 +229,7 @@ export default function Home() {
               <Paper>
                 <Grid container style={{ padding: 10,  maxHeight: 700, overflow: "scroll"  }}>
                   <Grid item xs={12}>
-                    <Typography>Appointment History</Typography>
+                    <Typography>Patient Appointment History</Typography>
                     <br></br>
                   </Grid>
                   {appntms
@@ -367,7 +367,7 @@ export default function Home() {
                     <TextField
                       variant="outlined"
                       size="small"
-                      label="Search doctor by name/specialization"
+                      label="Search doctor by name or specialization"
                       value={search}
                       fullWidth
                       onChange={(event) => {
@@ -538,6 +538,7 @@ export default function Home() {
             >
               Next
             </Button>
+            
           </IconButton>
           <IconButton edge="end" color="inherit">
           <Button

@@ -83,9 +83,7 @@ export default function Home() {
             style={{ fontSize: 28, fontStyle: "italic" }}
           ></Typography>
           <Typography style={{ fontSize: 18 }}>
-            Health Records Online is a convenient, easy way to access your
-            health information and keep in touch with your doctors through a
-            secure, online connection.
+          
           </Typography>
         </Grid>
 
@@ -106,7 +104,7 @@ export default function Home() {
               history("/Login");
             }}
           >
-            Existing User? Login Here
+            Existing User? please click Login 
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -122,7 +120,7 @@ export default function Home() {
               history("/Signup");
             }}
           >
-            Don't Have Account? Create Account
+            Don't Have Account? please click register 
           </Typography>
         </Grid>
         <Grid item xs={12} style={{ marginTop: 100 }}>
@@ -156,13 +154,23 @@ export default function Home() {
           <IconButton edge="end" color="inherit">
           <Button
               variant="contained"
-              style={{ backgroundColor: "grey", color: "black" }}
+              style={{ backgroundColor: "white", color: "black" }}
               color="primary"
-              disabled={true}
+              disabled={false}
             >
               Back
             </Button>
           </IconButton>
+          <IconButton edge="end" color="inherit">
+          <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  onClick={handleLogin}
+                >
+                  Submit
+              </Button>&nbsp;
+              </IconButton>
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"
@@ -175,6 +183,7 @@ export default function Home() {
               Next
             </Button>
           </IconButton>
+
           <IconButton edge="end" color="inherit">
             <Button
               variant="contained"

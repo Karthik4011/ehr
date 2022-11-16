@@ -121,6 +121,14 @@ export default function Home() {
                   Back
                 </Button>&nbsp;
                 <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  onClick={handleLogin}
+                >
+                  Submit
+                </Button>&nbsp;
+                <Button
                   variant="contained"
                   style={{ backgroundColor: "white", color: "black" }}
                   color="primary"
@@ -129,6 +137,18 @@ export default function Home() {
                   }}
                 >
                   Next
+                </Button>
+              
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    window.open("about:blank", "_self");
+                    window.close();
+                  }}
+                >
+                  Exit
                 </Button>
               </Grid>
             </Grid>

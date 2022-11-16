@@ -122,6 +122,24 @@ export default function Home() {
                 </Button>
                 &nbsp;
                 <Button
+                  color="primary"
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  onClick={handleLogin}
+                >
+                  Submit
+                </Button>&nbsp;
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "white", color: "black" }}
+                  color="primary"
+                  onClick={() => {
+                    history("/Contact");
+                  }}
+                >
+                  Next
+                </Button>
+                <Button
                   variant="contained"
                   style={{ backgroundColor: "white", color: "black" }}
                   color="primary"
